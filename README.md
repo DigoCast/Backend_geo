@@ -1,0 +1,1 @@
+Rodar migration: npm run migrate:dev -- --name nome_da_nova_migracao

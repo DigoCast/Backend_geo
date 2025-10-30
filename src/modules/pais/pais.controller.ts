@@ -22,4 +22,13 @@ export class paisController {
             })
         }
     }
+
+    findAll = async (req: Request, res: Response) => {
+        try {
+            const paises = await this.paisService.findAll();
+            return res.status(200).json(paises)
+        } catch (error) {
+            
+        }
+    }
 }

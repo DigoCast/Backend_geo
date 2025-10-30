@@ -32,4 +32,9 @@ export class paisService {
         })
         return novoPais;
     }
+
+    async findAll (): Promise<Pais[]> {
+        const paises = await prisma.pais.findMany();
+        return paises
+    }
 }

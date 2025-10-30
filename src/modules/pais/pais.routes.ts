@@ -5,5 +5,6 @@ const router = Router();
 const controller = new paisController();
 
 router.post("/", controller.create);
+router.get("/", controller.findAll);
 
 export { router as paisRoutes };

@@ -17,6 +17,7 @@ model Continente {
 model Pais {
   id            Int        @id @default(autoincrement())
   nome          String     @unique
+  sigla         String     @unique
   populacao     BigInt
   idiomaOficial String
   moeda         String

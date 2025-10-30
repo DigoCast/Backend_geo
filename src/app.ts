@@ -1,10 +1,15 @@
 import express from "express";
 import cors from "cors";
 import { continenteRoutes } from "./modules/continente/continente.routes.js";
+import { paisRoutes } from "./modules/pais/pais.routes.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -12,6 +17,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/continentes", continenteRoutes);
+app.use("/continente", continenteRoutes);
+app.use("/pais", paisRoutes)
 
 export { app };

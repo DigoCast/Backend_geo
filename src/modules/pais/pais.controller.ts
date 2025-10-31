@@ -31,4 +31,35 @@ export class paisController {
             
         }
     }
+
+    findById = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const pais = await this.paisService.findById(Number(id));
+            return res.status(200).json(pais)
+        } catch (error) {
+            return res.status(500).json({ message: error });
+        }
+    }
+
+    update = async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params;
+            const { nome, idiomaOficial, moeda, populacao, sigla, continenteId } = req.body;
+            const paisAtualizado = await this.paisService.update(Number(id), { nome, idiomaOficial, moeda, populacao, sigla, continenteId });
+            return res.status(200).json(paisAtualizado)
+        } catch (error) {
+            return res.status(500).json({ message: error });
+        }
+    }
+
+    delete = async (req: Request, res: Response ) => {
+        try {
+            const { id } = req.params;
+            const paisDeletado = await this.paisService.delete(Number(id));
+            return res.status(200).json(paisDeletado)
+        } catch (error) {
+            return res.status(500).json({ message: error });   
+        }
+    }
 }

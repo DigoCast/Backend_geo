@@ -39,7 +39,6 @@ export class continenteController {
             const continente = await this.continenteService.findById(Number(id));
             return res.status(200).json(continente);
         }catch (error) {
-            console.log(error)
             return res.status(500).json({ message: error });
         }
     }

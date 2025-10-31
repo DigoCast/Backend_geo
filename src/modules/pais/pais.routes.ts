@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { paisController } from "./pais.controller.js";
+import { PaisController } from "./pais.controller.js";
 
 const router = Router();
-const controller = new paisController();
+const controller = new PaisController();
 
 router.post("/", controller.create);
 router.get("/", controller.findAll);

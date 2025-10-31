@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { continenteController } from "./continente.controller.js";
+import { ContinenteController } from "./continente.controller.js";
 
 const router = Router();
-const controller = new continenteController();
+const controller = new ContinenteController();
 
 router.post("/", controller.create);
 router.get("/", controller.findAll);

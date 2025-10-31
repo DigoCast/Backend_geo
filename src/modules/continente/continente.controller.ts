@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
-import { continenteService } from "./continente.service.js";
+import { ContinenteService } from "./continente.service.js";
 
-export class continenteController {
-    private continenteService: continenteService;
+export class ContinenteController {
+    private continenteService: ContinenteService;
 
     constructor() {
-        this.continenteService = new continenteService();
+        this.continenteService = new ContinenteService();
     }
 
     create = async (req: Request, res: Response) => {

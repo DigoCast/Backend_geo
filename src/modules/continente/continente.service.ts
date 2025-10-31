@@ -6,7 +6,7 @@ type CreateContinenteDTO = {
   descricao: string;
 };
 
-export class continenteService {
+export class ContinenteService {
     async create(data: CreateContinenteDTO): Promise<Continente> {
         const continenteExists = await prisma.continente.findUnique({
             where: { nome: data.nome },

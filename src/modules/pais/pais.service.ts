@@ -10,7 +10,7 @@ type CreatePaisDTO = {
     continenteId: number
 }
 
-export class paisService {
+export class PaisService {
     async create(data: CreatePaisDTO): Promise<Pais> {
         const paisExists = await prisma.pais.findUnique({
             where: { nome: data.nome }

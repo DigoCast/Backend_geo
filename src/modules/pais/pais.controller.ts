@@ -1,11 +1,11 @@
 import type { Request, Response } from "express";
-import { paisService } from "./pais.service.js"
+import { PaisService } from "./pais.service.js"
 
-export class paisController {
-    private paisService: paisService;
+export class PaisController {
+    private paisService: PaisService;
 
     constructor(){
-        this.paisService = new paisService();
+        this.paisService = new PaisService();
     }
 
     create = async (req: Request, res: Response) => {

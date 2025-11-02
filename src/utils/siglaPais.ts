@@ -1,4 +1,4 @@
-export const SiglaPaises = {
+export const siglaPaises = {
     "ad": "Andorra",
     "ae": "Emirados Árabes Unidos",
     "af": "Afeganistão",

@@ -10,8 +10,8 @@ export class PaisController {
 
     create = async (req: Request, res: Response) => {
         try {
-            const { nome, idiomaOficial, moeda, populacao, sigla, continenteId } = req.body
-            const novoPais = await this.paisService.create({ nome, idiomaOficial, moeda, populacao, sigla, continenteId })
+            const { nome, continenteId } = req.body
+            const novoPais = await this.paisService.create({ nome, continenteId })
             return res.status(201).json(novoPais)
         } catch (error: unknown) {
             if(error instanceof Error && error.message === "País já existe"){

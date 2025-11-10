@@ -50,8 +50,12 @@ export class CidadeService {
         return novaCidade;
     };
 
-    async findAll () : Promise<Cidade[]> {
-        const cidades = await prisma.cidade.findMany();
+    async findAll (nome?: string) : Promise<Cidade[]> {
+        const cidades = await prisma.cidade.findMany({
+            where: nome ? {nome: {contains: nome, mode: "insensitive"}}
+            : {},
+            orderBy: {nome: "asc"}
+        });
         return cidades;
     };
 

@@ -27,7 +27,8 @@ export class CidadeController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const cidades = await this.cidadeService.findAll();
+            const nome = req.query.nome as string | undefined;;
+            const cidades = await this.cidadeService.findAll(nome);
             res.status(200).json(cidades);
         } catch (error) {
             return res.status(500).json({ message: 'Ocorreu um erro interno inesperado no servidor.' });

@@ -52,8 +52,12 @@ export class PaisService {
         return novoPais;
     };
 
-    async findAll (): Promise<Pais[]> {
-        const paises = await prisma.pais.findMany();
+    async findAll (nome?: string): Promise<Pais[]> {
+        const paises = await prisma.pais.findMany({
+            where: nome ? { nome: {contains: nome, mode: "insensitive"}}
+            : {},
+            orderBy: {nome: "asc"}
+        });
         return paises;
     };
 

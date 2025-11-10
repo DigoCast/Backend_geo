@@ -25,7 +25,8 @@ export class PaisController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const paises = await this.paisService.findAll();
+            const nome = req.query.nome as string | undefined;
+            const paises = await this.paisService.findAll(nome);
             return res.status(200).json(paises)
         } catch (error) {
             

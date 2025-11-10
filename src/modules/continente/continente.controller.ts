@@ -26,7 +26,8 @@ export class ContinenteController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const continentes = await this.continenteService.findAll();
+            const nome = req.query.nome as string | undefined;
+            const continentes = await this.continenteService.findAll(nome);
             return res.status(200).json(continentes);
         } catch (error) {
             return res.status(500).json({ message: 'Ocorreu um erro interno inesperado no servidor.' });

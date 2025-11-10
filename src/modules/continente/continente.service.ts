@@ -25,8 +25,12 @@ export class ContinenteService {
         return novoContinente;
     }
 
-    async findAll(): Promise<Continente[]> {
-        const continentes = await prisma.continente.findMany();
+    async findAll(nome?: string): Promise<Continente[]> {
+        const continentes = await prisma.continente.findMany({
+            where: nome ? { nome: {contains: nome, mode: "insensitive"}}
+            : {},
+            orderBy: {nome: "asc"}
+        });
         return continentes;
     }
 

@@ -27,10 +27,17 @@ export class CidadeController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const nome = req.query.nome as string | undefined;;
-            const cidades = await this.cidadeService.findAll(nome);
+            const { nome, paisId } = req.query as { nome?: string; paisId?: string };
+
+            const filters = {
+                nome,
+                paisId: paisId ? Number(paisId) : undefined,
+            };
+
+            const cidades = await this.cidadeService.findAll(filters);
             res.status(200).json(cidades);
         } catch (error) {
+            console.error("Erro ao buscar cidades:", error);
             return res.status(500).json({ message: 'Ocorreu um erro interno inesperado no servidor.' });
         }
     }    

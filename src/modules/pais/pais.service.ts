@@ -17,6 +17,12 @@ type UpdatePaisDTO = {
     continenteId: number
 }
 
+interface FindAllFilters {
+    nome?: string | undefined;
+    continenteId?: number | undefined;
+    populacaoMin?: bigint | undefined;
+    populacaoMax?: bigint | undefined;
+}
 
 export class PaisService {
     private countriesService = new CountriesService();
@@ -52,10 +58,32 @@ export class PaisService {
         return novoPais;
     };
 
-    async findAll (nome?: string): Promise<Pais[]> {
+    async findAll (filters: FindAllFilters = {}): Promise<Pais[]> {
+        const { nome, continenteId, populacaoMin, populacaoMax } = filters;
+        const whereClause: any = {};
+        
+        if (nome) {
+            whereClause.nome = {
+                contains: nome,
+                mode: "insensitive" as const,
+            };
+        }
+        if (continenteId) {
+            whereClause.continenteId = continenteId;
+        }
+        const populacaoFilter: { gte?: bigint; lte?: bigint } = {};
+        if (populacaoMin !== undefined) {
+            populacaoFilter.gte = populacaoMin;
+        }
+        if (populacaoMax !== undefined) {
+            populacaoFilter.lte = populacaoMax;
+        }
+        
+        if (Object.keys(populacaoFilter).length > 0) {
+            whereClause.populacao = populacaoFilter;
+        }
         const paises = await prisma.pais.findMany({
-            where: nome ? { nome: {contains: nome, mode: "insensitive"}}
-            : {},
+            where: whereClause,
             orderBy: {nome: "asc"}
         });
         return paises;

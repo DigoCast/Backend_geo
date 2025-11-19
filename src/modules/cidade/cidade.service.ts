@@ -8,6 +8,11 @@ type CreateCidadeDTO = {
     paisId: number
 }
 
+interface FindAllFilters {
+    nome?: string | undefined;
+    paisId?: number | undefined;
+}
+
 export class CidadeService {
     private geoService = new GeoService();
 
@@ -50,10 +55,22 @@ export class CidadeService {
         return novaCidade;
     };
 
-    async findAll (nome?: string) : Promise<Cidade[]> {
+    async findAll (filters: FindAllFilters = {}) : Promise<Cidade[]> {
+        const { nome, paisId } = filters;
+        const whereClause: any = {};
+        
+        if (nome) {
+            whereClause.nome = {
+                contains: nome,
+                mode: "insensitive" as const,
+            };
+        }
+        if (paisId) {
+            whereClause.paisId = paisId;
+        }
+
         const cidades = await prisma.cidade.findMany({
-            where: nome ? {nome: {contains: nome, mode: "insensitive"}}
-            : {},
+            where: whereClause, 
             orderBy: {nome: "asc"}
         });
         return cidades;

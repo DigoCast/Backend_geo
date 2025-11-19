@@ -25,11 +25,32 @@ export class PaisController {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            const nome = req.query.nome as string | undefined;
-            const paises = await this.paisService.findAll(nome);
+            const { 
+                nome, 
+                continenteId, 
+                populacaoMin, 
+                populacaoMax 
+            } = req.query as { 
+                nome?: string; 
+                continenteId?: string; 
+                populacaoMin?: string; 
+                populacaoMax?: string; 
+            };
+            
+            const filters = {
+                nome,
+                continenteId: continenteId ? Number(continenteId) : undefined,
+                populacaoMin: populacaoMin ? BigInt(populacaoMin) : undefined,
+                populacaoMax: populacaoMax ? BigInt(populacaoMax) : undefined,
+            };
+
+            const paises = await this.paisService.findAll(filters);
             return res.status(200).json(paises)
         } catch (error) {
-            
+            console.error("Erro ao buscar países:", error);
+            return res.status(500).json({
+                message: "Ocorreu um erro interno ao buscar os países"
+            });
         }
     }
 

@@ -3,6 +3,7 @@ import cors from "cors";
 import { continenteRoutes } from "./modules/continente/continente.routes.js";
 import { paisRoutes } from "./modules/pais/pais.routes.js";
 import { cidadeRoutes } from "./modules/cidade/cidade.routes.js";
+import { dashboardRoutes } from "./modules/dashboard/dashboard.routes.js";
 
 const app = express();
 app.use(cors());
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
 app.use("/continente", continenteRoutes);
 app.use("/pais", paisRoutes);
 app.use("/cidade", cidadeRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 export { app };
